@@ -1,0 +1,32 @@
+[
+  {
+    "titleName": "发现音乐",
+    "to": "findmusic",
+    "id": 0
+  },
+  {
+    "titleName": "播客",
+    "to": "podcast",
+    "id": 1
+  },
+  {
+    "titleName": "视频",
+    "to": "mv",
+    "id": 2
+  },
+  {
+    "titleName": "关注",
+    "to": "attention",
+    "id": 3
+  },
+  {
+    "titleName": "直播",
+    "to": "onlinelook",
+    "id": 4
+  },
+  {
+    "titleName": "私人FM",
+    "to": "privatefm",
+    "id": 5
+  }
+]

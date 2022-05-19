@@ -1,0 +1,32 @@
+[
+  {
+    "mineName": "本地与下载",
+    "to": "localdownload",
+    "id": 6,
+    "icon": "icon-iconfontzhizuobiaozhun023146"
+  },
+  {
+    "mineName": "最近播放",
+    "to": "recentplay",
+    "id": 7,
+    "icon": "icon-zuijinyuedu"
+  },
+  {
+    "mineName": "我的音乐云盘",
+    "to": "minemusiccloud",
+    "id": 8,
+    "icon": "icon-yun"
+  },
+  {
+    "mineName": "我的播客",
+    "to": "minepodcast",
+    "id": 9,
+    "icon": "icon-boke"
+  },
+  {
+    "mineName": "我的收藏",
+    "to": "minestore",
+    "id": 10,
+    "icon": "icon-wodeshoucang"
+  }
+]

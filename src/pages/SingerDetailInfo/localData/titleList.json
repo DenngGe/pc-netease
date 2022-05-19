@@ -1,0 +1,22 @@
+[
+  {
+    "titleName": "专辑",
+    "to": "singerdetailinfo/album",
+    "id": 0
+  },
+  {
+    "titleName": "MV",
+    "to": "singerdetailinfo/mv",
+    "id": 1
+  },
+  {
+    "titleName": "歌手详情",
+    "to": "singerdetailinfo/detail",
+    "id": 2
+  },
+  {
+    "titleName": "相似歌手",
+    "to": "singerdetailinfo/simi",
+    "id": 3
+  }
+]

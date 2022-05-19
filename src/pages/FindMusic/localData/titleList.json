@@ -1,0 +1,32 @@
+[
+  {
+    "titleName": "个性推荐",
+    "to": "findmusic/personalcommend",
+    "id": 0
+  },
+  {
+    "titleName": "专属定制",
+    "to": "findmusic/specialmade",
+    "id": 1
+  },
+  {
+    "titleName": "歌单",
+    "to": "findmusic/playlist",
+    "id": 2
+  },
+  {
+    "titleName": "排行榜",
+    "to": "findmusic/ranklist",
+    "id": 3
+  },
+  {
+    "titleName": "歌手",
+    "to": "findmusic/singer",
+    "id": 4
+  },
+  {
+    "titleName": "最新音乐",
+    "to": "findmusic/lastedmusic",
+    "id": 5
+  }
+]
