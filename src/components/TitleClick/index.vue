@@ -43,7 +43,7 @@ export default {
     align-items: center;
     li {
       font-size: 16px;
-      margin: 20px 10px;
+      margin: 20px 20px 20px 0px;
       position: relative;
       cursor: pointer;
     }

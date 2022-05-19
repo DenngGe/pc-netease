@@ -157,11 +157,10 @@ export default {
       width: 80%;
       min-width: 600px;
       max-width: 1000px;
-      margin: 0 auto;
+      margin: 0 20px;
       box-sizing: border-box;
       overflow: auto;
       height: calc(100vh - 135px);
-      padding-right: 20px;
       &::-webkit-scrollbar {
         width: 0 !important;
       }

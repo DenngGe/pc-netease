@@ -27,7 +27,7 @@ export default {
 
 <style lang="less" scoped>
 .carousel {
-  padding: 20px;
+  padding: 20px 0;
 }
 img {
   border-radius: 8px;
