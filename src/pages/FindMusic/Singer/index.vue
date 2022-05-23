@@ -8,7 +8,7 @@
             @click="updateSingerList(languageItem)"
             :class="{ chooseActive: languageIndex === languageItem.area }"
             v-for="languageItem in language"
-            :key="languageItem.text"
+            :key="languageItem.area"
           >
             {{ languageItem.name }}
           </dd>
@@ -19,7 +19,7 @@
             @click="updateSingerList(categoryItem)"
             :class="{ chooseActive: categoryIndex === categoryItem.type }"
             v-for="categoryItem in category"
-            :key="categoryItem.text"
+            :key="categoryItem.type"
           >
             {{ categoryItem.name }}
           </dd>
@@ -32,7 +32,7 @@
               @click="updateSingerList(screenItem)"
               :class="{ chooseActive: screenIndex === screenItem.initial }"
               v-for="screenItem in screen"
-              :key="screenItem.text"
+              :key="screenItem.id"
             >
               {{ screenItem.name }}
             </dd>
