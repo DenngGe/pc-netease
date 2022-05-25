@@ -73,3 +73,9 @@ export const reqAlbumDetail = (data) =>
     method: "post",
     data,
   });
+// 获取推荐歌单
+export const reqRecommendPlaylist = () =>
+  requests({
+    url: `/personalized?limit=10&timestamp=${Date.now()}`,
+    method: "get",
+  });
