@@ -8,8 +8,9 @@ const actions = {
   // 获取首页轮播图
   async getFindMusicCarouselList({ commit }) {
     let result = await reqFindMusicCarousel();
+    console.log(result);
     if (result.data.code === 200) {
-      commit("GETFINDMUSICCAROUSELLIST", result.data.data);
+      commit("GETFINDMUSICCAROUSELLIST", result.data.banners);
     }
   },
   // 获取推荐歌单
@@ -32,11 +33,7 @@ const mutations = {
   },
 };
 
-const getters = {
-  carouselList(state) {
-    return state.findMusicCarouselList.blocks || [];
-  },
-};
+const getters = {};
 
 export default {
   state,

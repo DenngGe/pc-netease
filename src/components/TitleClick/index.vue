@@ -46,6 +46,9 @@ export default {
       margin: 20px 20px 20px 0px;
       position: relative;
       cursor: pointer;
+      &:hover {
+        color: #fff;
+      }
     }
     .active {
       font-size: 20px;

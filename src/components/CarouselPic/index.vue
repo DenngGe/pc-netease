@@ -1,18 +1,15 @@
 <template>
   <div class="carousel" v-if="carouselList.length > 0">
     <el-carousel :interval="4000" type="card" height="200px">
-      <el-carousel-item
-        v-for="pic in carouselList[0].extInfo.banners"
-        :key="pic.bannerId"
-      >
-        <img v-lazy="pic.pic" alt="" />
+      <el-carousel-item v-for="(pic, index) in carouselList" :key="index">
+        <img v-lazy="pic.imageUrl" />
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "CarouselPic",
@@ -20,7 +17,9 @@ export default {
     this.$store.dispatch("getFindMusicCarouselList");
   },
   computed: {
-    ...mapGetters(["carouselList"]),
+    ...mapState({
+      carouselList: (state) => state.PersonalCommend.findMusicCarouselList,
+    }),
   },
 };
 </script>

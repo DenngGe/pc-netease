@@ -9,7 +9,7 @@ export const reqCheckLoginState = () =>
 // 首页轮播图
 export const reqFindMusicCarousel = () =>
   requests({
-    url: `/homepage/block/page?timestamp=${Date.now()}`,
+    url: `/banner?type=0&timestamp=${Date.now()}`,
     method: "get",
   });
 // 登陆界面国家编码
