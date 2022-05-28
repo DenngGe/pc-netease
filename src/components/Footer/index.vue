@@ -2,15 +2,19 @@
   <div class="footer">
     <div class="container">
       <div class="song-info">
-        <img src="./images/1.jpg" alt="" />
+        <img :src="songPic" alt="" />
         <div class="song-name-singer-name">
-          <p class="song-name">漠河舞厅</p>
-          <p class="singer-name">柳爽</p>
-          <audio ref="currentSong" :src="currentSongUrl"></audio>
-        </div>
-        <div class="song-store">
-          <i class="iconfont icon-aixin"></i>
-          <i style="display: none" class="iconfont icon-aixin_shixin"></i>
+          <p class="song-name">
+            {{ currentSongDetail.name }}
+            <i class="iconfont icon-aixin"></i>
+            <i style="display: none" class="iconfont icon-aixin_shixin"></i>
+          </p>
+          <p class="singer-name">{{ singerName }}</p>
+          <audio
+            ref="currentSong"
+            :src="currentSongUrl"
+            @timeupdate="updateTime"
+          ></audio>
         </div>
       </div>
       <div class="player">
@@ -31,7 +35,7 @@
           <i class="iconfont icon-geci"></i>
         </div>
         <div class="slide-time-control">
-          <span ref="aaa">01:10</span>
+          <span>{{ songCurrentTime }}</span>
           <div
             class="slide-control"
             @mouseover="showButton"
@@ -39,13 +43,13 @@
           >
             <el-slider
               class="a"
-              v-model="songTime"
+              :value="songTime"
               :show-tooltip="false"
               @mouseover="showButton"
               @mouseleave="hideButton"
             ></el-slider>
           </div>
-          <span>04:20</span>
+          <span>{{ songAllTime }}</span>
         </div>
       </div>
       <div class="song-setting">
@@ -66,15 +70,31 @@ export default {
   name: "Footer",
   data() {
     return {
-      songTime: 36,
+      songTime: 0,
       isPlay: false,
       currentSongUrl: "",
+      currentSongDetail: {},
+      songCurrentTime: "00:00",
+      songAllTime: "00:00",
     };
   },
   computed: {
     ...mapState({
       songUrl: (state) => state.footer.songUrl,
+      songDetail: (state) => state.footer.songDetail,
     }),
+    singerName() {
+      let singerArr = this.currentSongDetail.ar || [];
+      let singername = "";
+      for (const singer of singerArr) {
+        singername += `${singer.name} / `;
+      }
+      return singername.slice(0, -3);
+    },
+    songPic() {
+      let songpic = this.currentSongDetail.al?.picUrl;
+      return songpic;
+    },
   },
   methods: {
     // 鼠标移入显示滑块按钮
@@ -101,11 +121,36 @@ export default {
     async getSongInfo(id) {
       try {
         await this.$store.dispatch("getSongUrl", { id: id });
+        await this.$store.dispatch("getSongDetail", id);
         this.currentSongUrl = this.songUrl;
+        this.currentSongDetail = this.songDetail;
       } catch (error) {
         alert(error.message);
       }
     },
+    // 转换显示时间
+    convertTimeShow(time) {
+      let curTime = parseInt(time);
+      let minuteT = parseInt(curTime / 60);
+      let secondT = curTime % 60;
+      minuteT = minuteT < 10 ? `0${minuteT}` : minuteT;
+      secondT = secondT < 10 ? `0${secondT}` : secondT;
+      return `${minuteT}:${secondT}`;
+    },
+    // 随audio播放修改显示时间
+    updateTime() {
+      this.songCurrentTime = this.convertTimeShow(
+        this.$refs.currentSong.currentTime
+      );
+      this.songAllTime = this.convertTimeShow(this.currentSongDetail.dt / 1000);
+    },
+    /* slideTime(value) {
+      this.$refs.currentSong.currentTime =
+        (value / 100) * (this.currentSongDetail.dt / 1000);
+       this.songTime = value;
+      console.log(this.$refs.currentSong.currentTime);
+       console.log(value);
+    }, */
   },
   mounted() {
     this.$bus.$on("getSongId", this.getSongInfo);
@@ -116,6 +161,11 @@ export default {
         this.$refs.currentSong.play();
         this.isPlay = true;
       });
+    },
+    songCurrentTime() {
+      this.songTime =
+        (100 * parseInt(this.$refs.currentSong.currentTime)) /
+        (this.currentSongDetail.dt / 1000);
     },
   },
 };
@@ -129,7 +179,7 @@ export default {
   .container {
     display: flex;
     .song-info {
-      width: 22vw;
+      width: 22%;
       height: 72px;
       box-sizing: border-box;
       display: flex;
@@ -150,27 +200,31 @@ export default {
         .song-name:hover {
           color: #fff;
         }
-      }
-      .song-store {
-        align-self: flex-start;
-        padding-top: 14px;
-        .iconfont {
-          font-size: 18px;
-          padding-left: 6px;
-        }
-        .icon-aixin {
-          color: #737375;
-          &:hover {
-            color: #979798;
+        .song-name {
+          font-size: 16px;
+          .iconfont {
+            font-size: 18px;
+          }
+          .icon-aixin {
+            color: #737375;
+            &:hover {
+              color: #979798;
+            }
+          }
+          .icon-aixin_shixin {
+            color: #ec4141;
           }
         }
-        .icon-aixin_shixin {
-          color: #ec4141;
+        .singer-name {
+          font-size: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
     .player {
-      width: 56vw;
+      width: 56%;
       height: 72px;
       padding: 20px;
       box-sizing: border-box;
@@ -195,7 +249,7 @@ export default {
       }
     }
     .song-setting {
-      width: 22vw;
+      width: 22%;
       height: 72px;
       box-sizing: border-box;
       display: flex;

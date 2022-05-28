@@ -8,7 +8,6 @@ const actions = {
   // 获取首页轮播图
   async getFindMusicCarouselList({ commit }) {
     let result = await reqFindMusicCarousel();
-    console.log(result);
     if (result.data.code === 200) {
       commit("GETFINDMUSICCAROUSELLIST", result.data.banners);
     }
