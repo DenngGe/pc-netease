@@ -43,10 +43,11 @@
           >
             <el-slider
               class="a"
-              :value="songTime"
+              v-model="songTime"
               :show-tooltip="false"
               @mouseover="showButton"
               @mouseleave="hideButton"
+              @change="slideTime"
             ></el-slider>
           </div>
           <span>{{ songAllTime }}</span>
@@ -143,14 +144,17 @@ export default {
         this.$refs.currentSong.currentTime
       );
       this.songAllTime = this.convertTimeShow(this.currentSongDetail.dt / 1000);
+      this.songTime =
+        (100 * parseInt(this.$refs.currentSong.currentTime)) /
+        (this.currentSongDetail.dt / 1000);
     },
-    /* slideTime(value) {
+    slideTime(value) {
       this.$refs.currentSong.currentTime =
         (value / 100) * (this.currentSongDetail.dt / 1000);
-       this.songTime = value;
+      this.songTime = value;
       console.log(this.$refs.currentSong.currentTime);
-       console.log(value);
-    }, */
+      console.log(value);
+    },
   },
   mounted() {
     this.$bus.$on("getSongId", this.getSongInfo);
@@ -161,11 +165,6 @@ export default {
         this.$refs.currentSong.play();
         this.isPlay = true;
       });
-    },
-    songCurrentTime() {
-      this.songTime =
-        (100 * parseInt(this.$refs.currentSong.currentTime)) /
-        (this.currentSongDetail.dt / 1000);
     },
   },
 };
