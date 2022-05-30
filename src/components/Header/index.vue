@@ -11,7 +11,14 @@
             <a><i class="iconfont icon-jiantouzuo"></i></a>
             <a><i class="iconfont icon-jiantouyou"></i></a>
             <a><i class="iconfont icon-sousuo"></i></a>
-            <input type="text" placeholder="陈奕迅" />
+            <input
+              type="text"
+              :placeholder="defaultSearchKeyword.showKeyword"
+              data-searchPageControl="true"
+              @focus="updateSearchInfo"
+              v-model="searchInfo.keyword"
+              @keydown.enter="saveSearchHistory"
+            />
             <a><i class="iconfont icon-tinggeshiqu"></i></a>
           </div>
         </div>
@@ -150,15 +157,69 @@
         </div>
       </div>
       <!-- 大搜索框 -->
-      <div class="searchbox">
-        <div class="search-history">
-          <div class="search-history-title">
-            <span class="left">搜索历史</span>
-            <span class="right">查看全部</span>
+      <div
+        class="searchbox"
+        v-show="searchInfo.showSearchPage"
+        data-searchPageControl="true"
+      >
+        <div
+          class="search-history"
+          data-searchPageControl="true"
+          v-if="searchInfo.historyList.length > 0"
+        >
+          <div class="search-history-title" data-searchPageControl="true">
+            <span class="left" data-searchPageControl="true"
+              >搜索历史<i
+                class="iconfont icon-icon"
+                data-searchPageControl="true"
+                @click="removeAllKeyword"
+              ></i
+            ></span>
+            <span class="right" data-searchPageControl="true">查看全部</span>
           </div>
-          <div class="search-history-container"></div>
+          <ul class="search-history-container" data-searchPageControl="true">
+            <li
+              class="search-history-container-item"
+              v-for="(searchHistory, index) in searchHistoryList"
+              :key="index"
+            >
+              {{ searchHistory }}
+              <i
+                class="iconfont icon-chacha"
+                data-searchPageControl="true"
+                @click="deleteCurrentSearchHistory(searchHistory)"
+              ></i>
+            </li>
+          </ul>
         </div>
-        <div class="hot-search-list"></div>
+        <div class="hot-search-list">
+          <div class="hot-search-list-title" data-searchPageControl="true">
+            <span data-searchPageControl="true">热搜榜</span>
+          </div>
+          <ul class="hot-search-list-container">
+            <li
+              class="hot-search-list-item"
+              v-for="(item, index) in hotSearch"
+              :key="index"
+            >
+              <span
+                class="item-num"
+                :class="{ colorRed: index === 0 || index === 1 || index === 2 }"
+                >{{ index + 1 }}</span
+              >
+              <div class="item-detail">
+                <div class="item-detail-title">
+                  <span class="title-name">{{ item.searchWord }}</span>
+                  <span class="title-score">{{ item.score }}</span>
+                  <img :src="item.iconUrl" class="title-icon" />
+                </div>
+                <span class="item-detail-content" v-show="item.content">
+                  {{ item.content }}
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
       <!-- 用户信息大框 -->
       <div
@@ -291,19 +352,31 @@ export default {
         isCheckedIn: false,
         showDetailUserInfo: false,
       },
+      searchInfo: {
+        showSearchPage: false,
+        keyword: "",
+        historyList: [],
+      },
     };
   },
   mounted() {
     // 获取国家编号
     this.$store.dispatch("getLoginCountryCodeList");
+    this.updateDefaultSearchKeyword();
     this.$bus.$on("clickTarget", this.closeTargetPage);
+    this.getSearchHistory();
   },
   computed: {
     ...mapState({
       countryCodeList: (state) =>
         state.header.loginCountryCodeList[0].countryList,
+      defaultSearchKeyword: (state) => state.header.defaultSearchKeyword,
+      hotSearch: (state) => state.header.hotSearch,
     }),
     ...mapGetters(["userDetailInfo"]),
+    searchHistoryList() {
+      return [...this.searchInfo.historyList].reverse();
+    },
   },
   methods: {
     // 改变签到状态
@@ -316,6 +389,9 @@ export default {
     closeTargetPage(target) {
       if (!target.detailuserinfopagecontrol) {
         this.detailUserAboutinfo.showDetailUserInfo = false;
+      }
+      if (!target.searchpagecontrol) {
+        this.searchInfo.showSearchPage = false;
       }
     },
     // 关闭国家编码页面
@@ -364,6 +440,56 @@ export default {
     // 显示用户信息设置
     changeShowDetailUserInfo() {
       this.detailUserAboutinfo.showDetailUserInfo = true;
+    },
+    // 更新默认搜索关键词
+    updateDefaultSearchKeyword() {
+      this.$store.dispatch("getDefaultSearchKeyword");
+    },
+    // 更新热搜详情
+    updateHotSearch() {
+      this.$store.dispatch("getHotSearch");
+    },
+    // 更新搜索框内容
+    updateSearchInfo() {
+      this.updateDefaultSearchKeyword();
+      this.updateHotSearch();
+      this.searchInfo.showSearchPage = true;
+    },
+    // 保存搜索记录
+    saveSearchHistory(e) {
+      if (e && this.searchInfo.keyword === "") {
+        this.searchInfo.keyword = e.target.placeholder;
+      }
+      const arr = new Set(this.searchInfo.historyList);
+      arr.delete(this.searchInfo.keyword);
+      if (this.searchInfo.keyword !== "") {
+        arr.add(this.searchInfo.keyword);
+      }
+      this.searchInfo.historyList = Array.from(arr);
+      localStorage.setItem(
+        "keyword",
+        JSON.stringify(this.searchInfo.historyList)
+      );
+      this.searchInfo.keyword = "";
+    },
+    // 获取搜索记录
+    getSearchHistory() {
+      this.searchInfo.historyList = JSON.parse(
+        localStorage.getItem("keyword") || "[]"
+      );
+    },
+    // 删除选中历史记录
+    deleteCurrentSearchHistory(history) {
+      let delIndex = this.searchInfo.historyList.findIndex(
+        (item) => item === history
+      );
+      this.searchInfo.historyList.splice(delIndex, 1);
+      this.saveSearchHistory();
+    },
+    // 清空历史记录
+    removeAllKeyword() {
+      localStorage.removeItem("keyword");
+      this.searchInfo.historyList = [];
     },
   },
   watch: {
@@ -707,16 +833,131 @@ header {
       }
     }
     .searchbox {
-      display: none;
+      overflow: auto;
+      padding: 14px 0;
       position: absolute;
       z-index: 999;
       left: 200px;
+      top: 68px;
       width: 356px;
       height: 80vh;
       box-sizing: border-box;
       background-color: #363636;
       border-radius: 8px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+      &::-webkit-scrollbar {
+        width: 0 !important;
+      }
+      .search-history {
+        padding: 0 20px;
+        .search-history-title {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 12px;
+          span {
+            color: #909090;
+          }
+          .left {
+            font-size: 14px;
+            .icon-icon {
+              padding-left: 4px;
+              font-size: 14px;
+            }
+          }
+          .icon-icon:hover,
+          .right:hover {
+            color: #aeaeae;
+            cursor: pointer;
+          }
+        }
+        .search-history-container {
+          display: flex;
+          flex-wrap: wrap;
+          // max-height: 75px;
+          // overflow: hidden;
+          .search-history-container-item {
+            height: 8px;
+            line-height: 8px;
+            margin: 0 10px 12px 0;
+            padding: 8px 16px;
+            border: 1px solid #515151;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            &:hover {
+              .icon-chacha {
+                opacity: 1;
+              }
+            }
+            .icon-chacha {
+              position: absolute;
+              top: 9px;
+              font-size: 10px;
+              color: #676767;
+              opacity: 0;
+              &:hover {
+                color: #8c8c8c;
+              }
+            }
+          }
+        }
+      }
+      .hot-search-list {
+        .hot-search-list-title {
+          margin: 4px 0 18px 0;
+          padding: 0 20px;
+          span {
+            font-size: 14px;
+            color: #909090;
+          }
+        }
+        .hot-search-list-container {
+          .hot-search-list-item {
+            padding: 0 20px;
+            box-sizing: border-box;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            &:hover {
+              background-color: #333;
+              padding: 0 -50px;
+            }
+            .item-num {
+              font-size: 14px;
+              padding-right: 26px;
+              color: #5e5e5e;
+            }
+            .colorRed {
+              color: #ff3a3a;
+            }
+            .item-detail {
+              display: flex;
+              flex-direction: column;
+              // justify-content: space-between;
+              .item-detail-title {
+                display: flex;
+                align-items: center;
+                .title-name {
+                  font-size: 14px;
+                  padding-right: 8px;
+                }
+                .title-score {
+                  font-size: 10px;
+                  padding-right: 8px;
+                  color: #575757;
+                }
+                img {
+                  height: 14px;
+                }
+              }
+              .item-detail-content {
+                color: #6e6e6e;
+              }
+            }
+          }
+        }
+      }
     }
     .detailUserInfoBox {
       z-index: 999;

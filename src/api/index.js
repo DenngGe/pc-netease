@@ -85,3 +85,15 @@ export const reqSongDetail = (data) =>
     url: `/song/detail?ids=${data}&timestamp=${Date.now()}`,
     method: "get",
   });
+// 获取默认搜索关键词
+export const reqDefaultSearchKeyword = () =>
+  requests({
+    url: `/search/default?timestamp=${Date.now()}`,
+    method: "get",
+  });
+// 获取热搜列表
+export const reqHotSearch = () =>
+  requests({
+    url: `/search/hot/detail?timestamp=${Date.now()}`,
+    method: "get",
+  });
