@@ -152,8 +152,6 @@ export default {
       this.$refs.currentSong.currentTime =
         (value / 100) * (this.currentSongDetail.dt / 1000);
       this.songTime = value;
-      console.log(this.$refs.currentSong.currentTime);
-      console.log(value);
     },
   },
   mounted() {
