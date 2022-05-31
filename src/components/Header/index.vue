@@ -175,9 +175,20 @@
                 @click="removeAllKeyword"
               ></i
             ></span>
-            <span class="right" data-searchPageControl="true">查看全部</span>
+            <span
+              class="right"
+              data-searchPageControl="true"
+              @click="checkAllSearchHistory"
+              v-show="searchInfo.showCheckAll"
+              >查看全部</span
+            >
           </div>
-          <ul class="search-history-container" data-searchPageControl="true">
+          <ul
+            ref="searchHistory"
+            class="search-history-container"
+            :class="{ 'search-history-checkAll': !searchInfo.checkAll }"
+            data-searchPageControl="true"
+          >
             <li
               class="search-history-container-item"
               v-for="(searchHistory, index) in searchHistoryList"
@@ -356,6 +367,8 @@ export default {
         showSearchPage: false,
         keyword: "",
         historyList: [],
+        checkAll: false,
+        showCheckAll: true,
       },
     };
   },
@@ -454,6 +467,8 @@ export default {
       this.updateDefaultSearchKeyword();
       this.updateHotSearch();
       this.searchInfo.showSearchPage = true;
+      this.searchInfo.checkAll = false;
+      this.getSearchHistoryHeight();
     },
     // 保存搜索记录
     saveSearchHistory(e) {
@@ -471,6 +486,10 @@ export default {
         JSON.stringify(this.searchInfo.historyList)
       );
       this.searchInfo.keyword = "";
+      this.searchInfo.showSearchPage = false;
+      if (e) {
+        e.target.blur();
+      }
     },
     // 获取搜索记录
     getSearchHistory() {
@@ -485,11 +504,33 @@ export default {
       );
       this.searchInfo.historyList.splice(delIndex, 1);
       this.saveSearchHistory();
+      this.searchInfo.showSearchPage = true;
     },
     // 清空历史记录
     removeAllKeyword() {
       localStorage.removeItem("keyword");
       this.searchInfo.historyList = [];
+    },
+    // 查看所有搜索记录
+    checkAllSearchHistory() {
+      this.searchInfo.checkAll = true;
+      this.searchInfo.showCheckAll = false;
+    },
+    // 更新搜索记录高度判断是否展示查看全部
+    getSearchHistoryHeight() {
+      this.$nextTick(() => {
+        if (this.$refs.searchHistory) {
+          let osHeight = `${this.$refs.searchHistory.offsetHeight}px`;
+          let mHeight = window.getComputedStyle(
+            this.$refs.searchHistory
+          ).maxHeight;
+          if (osHeight === mHeight) {
+            this.searchInfo.showCheckAll = true;
+          } else {
+            this.searchInfo.showCheckAll = false;
+          }
+        }
+      });
     },
   },
   watch: {
@@ -873,12 +914,10 @@ header {
         .search-history-container {
           display: flex;
           flex-wrap: wrap;
-          // max-height: 75px;
-          // overflow: hidden;
           .search-history-container-item {
             height: 8px;
             line-height: 8px;
-            margin: 0 10px 12px 0;
+            margin: 1px 10px 12px 0;
             padding: 8px 16px;
             border: 1px solid #515151;
             border-radius: 12px;
@@ -900,6 +939,10 @@ header {
               }
             }
           }
+        }
+        .search-history-checkAll {
+          max-height: 79px;
+          overflow: hidden;
         }
       }
       .hot-search-list {
@@ -934,7 +977,6 @@ header {
             .item-detail {
               display: flex;
               flex-direction: column;
-              // justify-content: space-between;
               .item-detail-title {
                 display: flex;
                 align-items: center;

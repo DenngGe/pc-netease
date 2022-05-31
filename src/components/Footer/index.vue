@@ -216,7 +216,7 @@ export default {
           font-size: 10px;
           white-space: nowrap;
           overflow: hidden;
-          text-overflow: ellipsis;
+          max-width: 22vw;
         }
       }
     }

@@ -1,8 +1,8 @@
 <template>
   <div class="carousel" v-if="carouselList.length > 0">
     <el-carousel :interval="4000" type="card" height="200px">
-      <el-carousel-item v-for="(pic, index) in carouselList" :key="index">
-        <img v-lazy="pic.imageUrl" />
+      <el-carousel-item v-for="(item, index) in carouselList" :key="index">
+        <img v-lazy="item.imageUrl" @click="switchToPage(item)" />
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -20,6 +20,25 @@ export default {
     ...mapState({
       carouselList: (state) => state.PersonalCommend.findMusicCarouselList,
     }),
+  },
+  methods: {
+    switchToPage(item) {
+      let type = item.targetType;
+      switch (type) {
+        case 1:
+          this.$bus.$emit("getSongId", item.targetId);
+          break;
+        case 10:
+          alert("歌单还没做");
+          break;
+        case 3000:
+          window.open(item.url);
+          break;
+
+        default:
+          break;
+      }
+    },
   },
 };
 </script>
