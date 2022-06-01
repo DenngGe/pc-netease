@@ -5,6 +5,6 @@ module.exports = {
 
   // 代理跨域
   devServer: {
-    proxy: "http://localhost:3000",
+    proxy: "https://netease-cloud-music-api-sand-eight.vercel.app/",
   },
 };
