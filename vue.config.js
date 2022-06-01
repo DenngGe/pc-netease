@@ -4,7 +4,7 @@ module.exports = {
   lintOnSave: false,
 
   // 代理跨域
-  devServer: {
+  /* devServer: {
     proxy: "https://netease-cloud-music-api-one-lilac.vercel.app",
-  },
+  }, */
 };
