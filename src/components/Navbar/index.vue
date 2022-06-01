@@ -33,8 +33,10 @@
           <span>收藏的歌单<i class="iconfont icon-yousanjiao"></i></span>
         </div>
       </div>
-      <div class="main">
-        <router-view></router-view>
+      <div class="main-big">
+        <div class="main">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
   </div>
@@ -153,19 +155,23 @@ export default {
         }
       }
     }
-    .main {
+    .main-big {
       width: 80%;
-      min-width: 600px;
-      max-width: 1000px;
-      margin: 0 20px;
-      box-sizing: border-box;
-      overflow: auto;
-      height: calc(100vh - 135px);
-      &::-webkit-scrollbar {
-        width: 0 !important;
-      }
-      h1 {
-        color: #fff;
+      display: flex;
+      justify-content: center;
+      .main {
+        min-width: 600px;
+        max-width: 1000px;
+        margin: 0 20px;
+        box-sizing: border-box;
+        overflow: auto;
+        height: calc(100vh - 135px);
+        &::-webkit-scrollbar {
+          width: 0 !important;
+        }
+        h1 {
+          color: #fff;
+        }
       }
     }
   }
