@@ -26,11 +26,11 @@ export default {
   methods: {
     // 路由跳转
     toPage(item) {
-      (this.currentIndex = item.id),
-        this.$router.push({
-          path: `/app/${item.to}`,
-          query: this.queryMessage,
-        });
+      this.currentIndex = item.id;
+      this.$router.push({
+        path: `/app/${item.to}`,
+        query: this.queryMessage,
+      });
     },
   },
 };

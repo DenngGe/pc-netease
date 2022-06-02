@@ -98,6 +98,50 @@ export default [
           },
         ],
       },
+      {
+        name: "searchdetailinfo",
+        path: "searchdetailinfo",
+        component: () => import("@/pages/SearchDetailInfo"),
+        redirect: "searchdetailinfo/song",
+        children: [
+          {
+            path: "song",
+            component: () => import("@/pages/SearchDetailInfo/Song"),
+          },
+          {
+            path: "singer",
+            component: () => import("@/pages/SearchDetailInfo/Singer"),
+          },
+          {
+            path: "album",
+            component: () => import("@/pages/SearchDetailInfo/Album"),
+          },
+          {
+            path: "mv",
+            component: () => import("@/pages/SearchDetailInfo/MV"),
+          },
+          {
+            path: "playlist",
+            component: () => import("@/pages/SearchDetailInfo/PlayList"),
+          },
+          {
+            path: "lyrics",
+            component: () => import("@/pages/SearchDetailInfo/Lyrics"),
+          },
+          {
+            path: "podcast",
+            component: () => import("@/pages/SearchDetailInfo/PodCast"),
+          },
+          {
+            path: "sound",
+            component: () => import("@/pages/SearchDetailInfo/Sound"),
+          },
+          {
+            path: "user",
+            component: () => import("@/pages/SearchDetailInfo/User"),
+          },
+        ],
+      },
     ],
   },
   {

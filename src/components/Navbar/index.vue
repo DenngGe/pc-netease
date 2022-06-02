@@ -160,6 +160,7 @@ export default {
       display: flex;
       justify-content: center;
       .main {
+        width: 95%;
         min-width: 600px;
         max-width: 1000px;
         margin: 0 20px;

@@ -1,0 +1,56 @@
+[
+  {
+    "titleName": "单曲",
+    "to": "searchdetailinfo/song",
+    "type": 1,
+    "id": 0
+  },
+  {
+    "titleName": "歌手",
+    "to": "searchdetailinfo/singer",
+    "type": 100,
+    "id": 1
+  },
+  {
+    "titleName": "专辑",
+    "to": "searchdetailinfo/album",
+    "type": 10,
+    "id": 2
+  },
+  {
+    "titleName": "视频",
+    "to": "searchdetailinfo/mv",
+    "type": 1014,
+    "id": 3
+  },
+  {
+    "titleName": "歌单",
+    "to": "searchdetailinfo/playlist",
+    "type": 1000,
+    "id": 4
+  },
+  {
+    "titleName": "歌词",
+    "to": "searchdetailinfo/lyrics",
+    "type": 1006,
+    "id": 5
+  },
+  {
+    "titleName": "播客",
+    "to": "searchdetailinfo/podcast",
+    "type": 1004,
+    "id": 6
+  },
+  {
+    "titleName": "声音",
+    "to": "searchdetailinfo/sound",
+    "type": 2000,
+    "id": 7
+  },
+  {
+    "titleName": "用户",
+    "to": "searchdetailinfo/user",
+    "type": 1002,
+    "id": 8
+  }
+]
