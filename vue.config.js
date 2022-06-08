@@ -5,6 +5,9 @@ module.exports = {
 
   // 代理跨域
   /* devServer: {
+    proxy: "http://124.222.201.132:3000/",
+  }, 
+  /* devServer: {
     proxy: "http://localhost:3000",
   }, */
 };

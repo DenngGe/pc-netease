@@ -4,6 +4,7 @@ import router from "@/router";
 import store from "@/store";
 import CarouselPic from "@/components/CarouselPic";
 import TitleClick from "@/components/TitleClick";
+import "@/assets/reset.css";
 
 import {
   Slider,
