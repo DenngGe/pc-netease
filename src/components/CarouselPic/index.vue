@@ -29,6 +29,9 @@ export default {
           this.$bus.$emit("getSongId", item.targetId);
           break;
         case 10:
+          alert("专辑还没做");
+          break;
+        case 1000:
           alert("歌单还没做");
           break;
         case 3000:
