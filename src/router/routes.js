@@ -4,6 +4,7 @@ export default [
     component: () => import("@/components/Navbar"),
     children: [
       {
+        name: "findmusic",
         path: "findmusic",
         component: () => import("@/pages/FindMusic"),
         redirect: "findmusic/personalcommend",

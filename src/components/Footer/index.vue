@@ -104,7 +104,7 @@ export default {
       btn.style.display = "inline-block";
     },
     // 鼠标移出隐藏滑块按钮
-    hideButton(e) {
+    hideButton() {
       let btn = document.querySelector(".el-slider__button");
       btn.style.display = "none";
     },

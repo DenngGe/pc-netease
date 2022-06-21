@@ -97,3 +97,10 @@ export const reqHotSearch = () =>
     url: `/search/hot/detail?timestamp=${Date.now()}`,
     method: "get",
   });
+// 获取搜索结果
+export const reqSearchResult = (data) =>
+  requests({
+    url: `/cloudsearch?limit=20&timestamp=${Date.now()}`,
+    method: "post",
+    data,
+  });

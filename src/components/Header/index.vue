@@ -5,11 +5,15 @@
         <!-- logo和搜索框 -->
         <div class="header-body-left">
           <div id="logo">
-            <a><i class="iconfont icon-logView"></i></a>
+            <a><i class="iconfont icon-logView" @click="returnToHome"></i></a>
           </div>
           <div id="search">
-            <a><i class="iconfont icon-jiantouzuo"></i></a>
-            <a><i class="iconfont icon-jiantouyou"></i></a>
+            <a
+              ><i class="iconfont icon-jiantouzuo" @click="$router.go(-1)"></i
+            ></a>
+            <a
+              ><i class="iconfont icon-jiantouyou" @click="$router.go(1)"></i
+            ></a>
             <a><i class="iconfont icon-sousuo"></i></a>
             <input
               type="text"
@@ -194,7 +198,9 @@
               v-for="(searchHistory, index) in searchHistoryList"
               :key="index"
             >
-              {{ searchHistory }}
+              <span @click="clickToSearch(searchHistory)">{{
+                searchHistory
+              }}</span>
               <i
                 class="iconfont icon-chacha"
                 data-searchPageControl="true"
@@ -212,6 +218,7 @@
               class="hot-search-list-item"
               v-for="(item, index) in hotSearch"
               :key="index"
+              @click="clickToSearch(item.searchWord)"
             >
               <span
                 class="item-num"
@@ -485,11 +492,12 @@ export default {
         "keyword",
         JSON.stringify(this.searchInfo.historyList)
       );
-      this.searchInfo.keyword = "";
+      // this.searchInfo.keyword = "";
       this.searchInfo.showSearchPage = false;
       if (e) {
         e.target.blur();
       }
+      this.goSearchDetail();
     },
     // 获取搜索记录
     getSearchHistory() {
@@ -532,11 +540,28 @@ export default {
         }
       });
     },
+    // 跳转搜索页面
+    goSearchDetail(searchHistory) {
+      let location = {
+        name: "searchdetailinfo",
+        query: {
+          keyword: searchHistory || this.searchInfo.keyword,
+        },
+      };
+      this.$router.push(location);
+    },
+    clickToSearch(searchHistory) {
+      this.searchInfo.keyword = searchHistory;
+      this.saveSearchHistory();
+    },
+    returnToHome() {
+      this.$router.push({ name: "findmusic" });
+    },
   },
   watch: {
     userDetailInfo: {
       deep: true,
-      handler(newValue) {
+      handler() {
         this.loginAboutInfo.isLogin =
           this.userDetailInfo.profile !== null ? true : false;
       },
@@ -566,6 +591,7 @@ header {
           .icon-logView {
             font-size: 42px;
             color: #fff;
+            cursor: pointer;
           }
         }
         #search {
@@ -577,6 +603,7 @@ header {
               font-size: 12px;
               padding: 0 10px;
               color: #7c7c7c;
+              cursor: pointer;
             }
             .icon-sousuo {
               font-size: 14px;

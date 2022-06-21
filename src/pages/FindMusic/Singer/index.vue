@@ -114,7 +114,6 @@ export default {
         name: "singerdetailinfo",
         query: {
           id: singer.id,
-          img1v1Url: singer.img1v1Url,
         },
       };
       this.$router.push(location);

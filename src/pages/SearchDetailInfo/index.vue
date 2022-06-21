@@ -1,6 +1,6 @@
 <template>
   <div class="searchDetail">
-    <div class="searchDetail-name">搜索 漠河舞厅</div>
+    <div class="searchDetail-name">搜索 {{ keyword }}</div>
     <TitleClick
       :titleList="titleList"
       :queryMessage="$route.query"
@@ -15,7 +15,17 @@ export default {
   data() {
     return {
       titleList,
+      keyword: this.$route.query.keyword,
+      local: {
+        keyword: this.keyword,
+        titleList,
+      },
     };
+  },
+  watch: {
+    $route() {
+      this.keyword = this.$route.query.keyword;
+    },
   },
 };
 </script>

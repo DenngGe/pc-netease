@@ -1,7 +1,9 @@
 <template>
   <div class="singer-datail-info">
     <div class="detail-info">
-      <img :src="$route.query.img1v1Url" />
+      <img
+        :src="singerDetail.cover ? `${singerDetail.cover}?param=200y200` : ''"
+      />
       <div class="info">
         <p class="info-name">{{ singerDetail.name }}</p>
         <button><i class="iconfont icon-wenjianjia"></i>收藏</button>
