@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { debounce } from "lodash";
 export default {
   name: "TitleClick",
   data() {
@@ -25,13 +26,13 @@ export default {
   props: ["titleList", "queryMessage"],
   methods: {
     // 路由跳转
-    toPage(item) {
+    toPage: debounce(function (item) {
       this.currentIndex = item.id;
       this.$router.push({
         path: `/app/${item.to}`,
         query: this.queryMessage,
       });
-    },
+    }, 50),
   },
 };
 </script>

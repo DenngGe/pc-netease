@@ -112,6 +112,7 @@ export default {
     align-items: center;
     font-size: 14px;
     height: 32px;
+    padding: 5px 0 15px 0;
     cursor: pointer;
     .song-button-play {
       display: flex;
@@ -214,6 +215,10 @@ export default {
         }
         i {
           cursor: pointer;
+        }
+        .singer i:hover,
+        .album i:hover {
+          color: #b4b4b4;
         }
         &:nth-child(2n) {
           background-color: #2e2e2e;

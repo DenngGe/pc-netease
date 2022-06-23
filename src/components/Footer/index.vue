@@ -77,6 +77,7 @@ export default {
       currentSongDetail: {},
       songCurrentTime: "00:00",
       songAllTime: "00:00",
+      isFirst: true,
     };
   },
   computed: {
@@ -120,6 +121,7 @@ export default {
     },
     // 根据歌曲id获取歌曲信息
     async getSongInfo(id) {
+      localStorage.setItem("songId", id);
       try {
         await this.$store.dispatch("getSongUrl", { id: id });
         await this.$store.dispatch("getSongDetail", id);
@@ -156,12 +158,18 @@ export default {
   },
   mounted() {
     this.$bus.$on("getSongId", this.getSongInfo);
+    this.getSongInfo(localStorage.getItem("songId") * 1 || 1894094482);
+    setTimeout(() => {
+      this.isFirst = false;
+    }, 1000);
   },
   watch: {
     currentSongUrl() {
       this.$nextTick(() => {
-        this.$refs.currentSong.play();
-        this.isPlay = true;
+        if (!this.isFirst) {
+          this.$refs.currentSong.play();
+          this.isPlay = true;
+        }
       });
     },
   },

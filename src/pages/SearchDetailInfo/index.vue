@@ -33,7 +33,7 @@ export default {
 <style lang="less" scoped>
 .searchDetail {
   .searchDetail-name {
-    padding-top: 20px;
+    padding: 20px 0 10px 0;
     font-size: 20px;
     font-weight: 700;
   }

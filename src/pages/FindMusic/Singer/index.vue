@@ -42,7 +42,10 @@
       <div class="singerShow">
         <ul class="singerShowList">
           <li v-for="singer in singerList" :key="singer.id">
-            <img v-lazy="singer.img1v1Url" @click="goSingerDetail(singer)" />
+            <img
+              v-lazy="`${singer.img1v1Url}?param=200y200`"
+              @click="goSingerDetail(singer)"
+            />
             <div>
               <span @click="goSingerDetail(singer)">{{ singer.name }}</span>
               <i
@@ -62,6 +65,7 @@ import language from "./localData/language.json";
 import category from "./localData/category.json";
 import screen from "./localData/screen.json";
 import { mapState } from "vuex";
+import { debounce } from "lodash";
 
 export default {
   name: "Singer",
@@ -86,7 +90,7 @@ export default {
     });
   },
   methods: {
-    updateSingerList(item) {
+    updateSingerList: debounce(function (item) {
       this.type = item.type ? item.type : this.type;
       this.area = item.area ? item.area : this.area;
       this.initial = item.initial ? item.initial : this.initial;
@@ -108,7 +112,7 @@ export default {
         type: this.type,
         initial: this.initial,
       });
-    },
+    }, 50),
     goSingerDetail(singer) {
       let location = {
         name: "singerdetailinfo",
