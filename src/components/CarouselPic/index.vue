@@ -32,7 +32,12 @@ export default {
           alert("专辑还没做");
           break;
         case 1000:
-          alert("歌单还没做");
+          this.$router.push({
+            name: "playlistdetailinfo",
+            query: {
+              id: item.targetId,
+            },
+          });
           break;
         case 3000:
           window.open(item.url);

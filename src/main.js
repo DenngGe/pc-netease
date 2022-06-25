@@ -4,6 +4,7 @@ import router from "@/router";
 import store from "@/store";
 import CarouselPic from "@/components/CarouselPic";
 import TitleClick from "@/components/TitleClick";
+import SongList from "@/components/SongList";
 import "@/assets/reset.css";
 
 import {
@@ -22,6 +23,7 @@ Vue.use(CarouselItem);
 Vue.use(Button);
 Vue.component(CarouselPic.name, CarouselPic);
 Vue.component(TitleClick.name, TitleClick);
+Vue.component(SongList.name, SongList);
 Vue.prototype.$message = Message;
 
 Vue.config.productionTip = false;
@@ -30,6 +32,10 @@ Vue.config.productionTip = false;
 import "@/plugins/validate";
 import VueLazyload from "vue-lazyload";
 import loading from "@/assets/loading.jpg";
+
+// 引入dayjs
+import dayjs from "dayjs";
+Vue.prototype.$dayjs = dayjs;
 
 // 注册插件
 Vue.use(VueLazyload, {

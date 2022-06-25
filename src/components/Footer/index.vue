@@ -5,7 +5,9 @@
         <img :src="songPic" alt="" />
         <div class="song-name-singer-name">
           <p class="song-name">
-            {{ currentSongDetail.name }}
+            <span class="song-name-name">
+              {{ currentSongDetail.name }}
+            </span>
             <i class="iconfont icon-aixin"></i>
             <i style="display: none" class="iconfont icon-aixin_shixin"></i>
           </p>
@@ -206,7 +208,17 @@ export default {
           color: #fff;
         }
         .song-name {
+          display: flex;
+          align-items: center;
           font-size: 16px;
+          .song-name-name {
+            display: inline-block;
+            width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-right: 8px;
+          }
           .iconfont {
             font-size: 18px;
           }

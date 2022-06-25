@@ -7,8 +7,10 @@
         <div class="playerShow">
           <ul class="playerShowList">
             <li v-for="player in personalCommendList" :key="player.id">
-              <img v-lazy="player.picUrl" />
-              <span class="playerDetail">{{ player.name }}</span>
+              <img @click="toPlayList(player.id)" v-lazy="player.picUrl" />
+              <span @click="toPlayList(player.id)" class="playerDetail">{{
+                player.name
+              }}</span>
               <span class="playerCount"
                 ><i class="iconfont icon-24gl-play"></i
                 >{{ showPlayCount(player.playCount) }}</span
@@ -25,7 +27,6 @@
 import { mapState } from "vuex";
 export default {
   name: "PersonalCommend",
-  methods: {},
   mounted() {
     this.$store.dispatch("getPersonalCommend");
   },
@@ -35,7 +36,7 @@ export default {
     }),
     showPlayCount() {
       return function (playCount) {
-        let playCountStr = playCount.toString();
+        let playCountStr = (playCount || "").toString();
         let countLength = playCountStr.length;
         let showCount = "";
         if (countLength <= 5) {
@@ -47,6 +48,17 @@ export default {
         }
         return showCount;
       };
+    },
+  },
+  methods: {
+    toPlayList(id) {
+      let location = {
+        name: "playlistdetailinfo",
+        query: {
+          id,
+        },
+      };
+      this.$router.push(location);
     },
   },
 };

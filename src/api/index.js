@@ -104,3 +104,17 @@ export const reqSearchResult = (data) =>
     method: "post",
     data,
   });
+// 获取歌单详情
+export const reqPlayListDetail = (data) =>
+  requests({
+    url: `/playlist/detail?timestamp=${Date.now()}`,
+    method: "post",
+    data,
+  });
+// 获取歌单歌曲
+export const reqPlayListSong = (data) =>
+  requests({
+    url: `/playlist/track/all?timestamp=${Date.now()}`,
+    method: "post",
+    data,
+  });

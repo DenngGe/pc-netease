@@ -7,6 +7,7 @@ import header from "./header";
 import footer from "./footer";
 import singerDetailInfo from "./singerDetailInfo";
 import searchDetailInfo from "./searchDetailInfo";
+import playListDetailInfo from "./playListDetailInfo";
 import PersonalCommend from "./findmusic/PersonalCommend";
 import singer from "./findmusic/singer";
 export default new Vuex.Store({
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     singer,
     singerDetailInfo,
     searchDetailInfo,
+    playListDetailInfo,
   },
 });

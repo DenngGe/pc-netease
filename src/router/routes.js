@@ -143,6 +143,26 @@ export default [
           },
         ],
       },
+      {
+        name: "playlistdetailinfo",
+        path: "playlistdetailinfo",
+        component: () => import("@/pages/PlayListDetailInfo"),
+        redirect: "playlistdetailinfo/playlistsong",
+        children: [
+          {
+            path: "playlistsong",
+            component: () => import("@/pages/PlayListDetailInfo/PlayListSong"),
+          },
+          {
+            path: "comments",
+            component: () => import("@/pages/PlayListDetailInfo/Comments"),
+          },
+          {
+            path: "collectors",
+            component: () => import("@/pages/PlayListDetailInfo/Collectors"),
+          },
+        ],
+      },
     ],
   },
   {

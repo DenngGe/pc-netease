@@ -14,9 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="others-info">
-      <TitleClick :titleList="titleList" :queryMessage="$route.query" />
-    </div>
+    <TitleClick :titleList="titleList" :queryMessage="$route.query" />
   </div>
 </template>
 

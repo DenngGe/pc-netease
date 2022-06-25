@@ -1,0 +1,17 @@
+[
+  {
+    "titleName": "歌曲列表",
+    "to": "playListDetailInfo/playlistsong",
+    "id": 0
+  },
+  {
+    "titleName": "评论",
+    "to": "playListDetailInfo/comments",
+    "id": 1
+  },
+  {
+    "titleName": "收藏者",
+    "to": "playListDetailInfo/collectors",
+    "id": 2
+  }
+]
