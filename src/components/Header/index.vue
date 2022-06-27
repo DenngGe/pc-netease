@@ -445,7 +445,7 @@ export default {
       } catch (error) {
         // 如果密码错误弹出提示框
         this.$message({
-          message: "手机号或密码错误",
+          message: `${error.response.data.data.blockText}`,
           type: "error",
           offset: 165,
           duration: 2000,

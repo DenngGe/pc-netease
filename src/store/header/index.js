@@ -27,8 +27,6 @@ const actions = {
     let result = await reqPhoneLogin(data);
     if (result.data.code === 200) {
       commit("GETPHONELOGININFO", result.data);
-    } else {
-      return Promise.reject(new Error(result.data.msg));
     }
   },
   // 获取登录信息
