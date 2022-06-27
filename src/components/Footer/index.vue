@@ -16,6 +16,7 @@
             ref="currentSong"
             :src="currentSongUrl"
             @timeupdate="updateTime"
+            @ended="songEnd"
           ></audio>
         </div>
       </div>
@@ -156,6 +157,11 @@ export default {
       this.$refs.currentSong.currentTime =
         (value / 100) * (this.currentSongDetail.dt / 1000);
       this.songTime = value;
+    },
+    songEnd() {
+      this.$refs.currentSong.pause();
+      this.$refs.currentSong.currentTime = 0;
+      this.$refs.currentSong.play();
     },
   },
   mounted() {
