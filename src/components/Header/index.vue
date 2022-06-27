@@ -351,6 +351,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import { debounce } from "lodash";
 
 export default {
   name: "Header",
@@ -422,17 +423,26 @@ export default {
       }
     },
     // 登录按钮
-    async login() {
+    login: debounce(async function () {
       try {
         let { phone, password } = this.loginAboutInfo;
         // 判断是否勾选同意政策
         if (this.loginAboutInfo.agreePolicy) {
-          await this.$store.dispatch("getPhoneLoginInfo", {
-            phone,
-            password,
-          });
-          this.loginAboutInfo.showLoginPage = false;
-          this.$store.dispatch("getLoginState");
+          if (phone && password) {
+            await this.$store.dispatch("getPhoneLoginInfo", {
+              phone,
+              password,
+            });
+            this.loginAboutInfo.showLoginPage = false;
+            this.$store.dispatch("getLoginState");
+          } else {
+            this.$message({
+              message: "请输入账号密码",
+              type: "error",
+              offset: 165,
+              duration: 2000,
+            });
+          }
         } else {
           // 没有勾选则弹出提示框
           this.$message({
@@ -451,7 +461,7 @@ export default {
           duration: 2000,
         });
       }
-    },
+    }, 500),
     // 退出登录
     async userLogout() {
       await this.$store.dispatch("userLogout");
