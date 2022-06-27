@@ -2,13 +2,13 @@ import {
   reqSingerTop50List,
   reqSingerDetail,
   reqSingerAlbum,
-  reqAlbumDetail,
+  // reqAlbumDetail,
 } from "@/api";
 const state = {
   singerTop50List: [],
   singerDetail: {},
   hotAlbums: [],
-  songsList: [],
+  // albumDetail: [],
   albumArtist: "",
 };
 const actions = {
@@ -34,12 +34,12 @@ const actions = {
     }
   },
   // 获取专辑内容
-  async getAlbumDetail({ commit }, data) {
+  /* async getAlbumDetail({ commit }, data) {
     let result = await reqAlbumDetail(data);
     if (result.data.code === 200) {
-      commit("GETALBUMDETAIL", result.data.songs);
+      commit("GETALBUMDETAIL", result.data);
     }
-  },
+  }, */
 };
 const mutations = {
   GETSINGERTOP50(state, singerTop50List) {
@@ -51,9 +51,9 @@ const mutations = {
   GETSINGERALBUM(state, hotAlbums) {
     state.hotAlbums = hotAlbums;
   },
-  GETALBUMDETAIL(state, songsList) {
-    state.songsList.push(songsList);
-  },
+  /* GETALBUMDETAIL(state, albumDetail) {
+    state.albumDetail = albumDetail;
+  }, */
 };
 const getters = {};
 

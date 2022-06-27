@@ -14,16 +14,17 @@
           <i class="iconfont icon-aixin"></i>
           <i class="iconfont icon-iconfontzhizuobiaozhun023146"></i>
         </span>
-        <span class="title" @click="playThisSong(song.id)">{{
-          song.name
-        }}</span>
+        <span class="title" @click="playThisSong(song.id)">
+          {{ song.name }}
+          <i v-if="song.alia[0]">({{ song.alia[0] }})</i>
+        </span>
         <span class="singer"
           ><i @click="goSingerDetail(song.ar[0].id)">{{
             song.ar[0].name
           }}</i></span
         >
         <span class="album"
-          ><i>{{ song.al.name }}</i></span
+          ><i @click="toAlbum(song.al.id)">{{ song.al.name }}</i></span
         >
         <span class="time">{{ convertTimeShow(song.dt / 1000) }}</span>
       </dd>
@@ -62,6 +63,15 @@ export default {
         name: "singerdetailinfo",
         query: {
           id: id,
+        },
+      };
+      this.$router.push(location);
+    },
+    toAlbum(id) {
+      let location = {
+        name: "albumdetailinfo",
+        query: {
+          id,
         },
       };
       this.$router.push(location);
@@ -120,6 +130,9 @@ export default {
     dd {
       .title {
         color: #d1d1d1;
+        i {
+          color: #666666;
+        }
       }
       i {
         cursor: pointer;

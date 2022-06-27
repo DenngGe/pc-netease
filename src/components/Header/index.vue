@@ -492,7 +492,6 @@ export default {
         "keyword",
         JSON.stringify(this.searchInfo.historyList)
       );
-      // this.searchInfo.keyword = "";
       this.searchInfo.showSearchPage = false;
       if (e) {
         e.target.blur();

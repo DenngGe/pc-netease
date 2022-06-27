@@ -1,0 +1,17 @@
+[
+  {
+    "titleName": "歌曲列表",
+    "to": "albumdetailinfo/albumsong",
+    "id": 0
+  },
+  {
+    "titleName": "评论",
+    "to": "albumdetailinfo/albumcomments",
+    "id": 1
+  },
+  {
+    "titleName": "专辑详情",
+    "to": "albumdetailinfo/albumdetail",
+    "id": 2
+  }
+]

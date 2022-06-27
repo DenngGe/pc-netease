@@ -213,7 +213,7 @@ export default {
           font-size: 16px;
           .song-name-name {
             display: inline-block;
-            width: 220px;
+            max-width: 220px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

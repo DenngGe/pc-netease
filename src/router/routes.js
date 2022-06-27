@@ -163,6 +163,26 @@ export default [
           },
         ],
       },
+      {
+        name: "albumdetailinfo",
+        path: "albumdetailinfo",
+        component: () => import("@/pages/AlbumDetailInfo"),
+        redirect: "albumdetailinfo/albumsong",
+        children: [
+          {
+            path: "albumsong",
+            component: () => import("@/pages/AlbumDetailInfo/AlbumSong"),
+          },
+          {
+            path: "albumcomments",
+            component: () => import("@/pages/AlbumDetailInfo/AlbumComments"),
+          },
+          {
+            path: "albumdetail",
+            component: () => import("@/pages/AlbumDetailInfo/AlbumDetail"),
+          },
+        ],
+      },
     ],
   },
   {

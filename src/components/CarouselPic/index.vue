@@ -29,7 +29,12 @@ export default {
           this.$bus.$emit("getSongId", item.targetId);
           break;
         case 10:
-          alert("专辑还没做");
+          this.$router.push({
+            name: "albumdetailinfo",
+            query: {
+              id: item.targetId,
+            },
+          });
           break;
         case 1000:
           this.$router.push({

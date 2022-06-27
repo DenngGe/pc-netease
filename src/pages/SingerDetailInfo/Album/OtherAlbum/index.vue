@@ -1,9 +1,9 @@
 <template>
   <div v-if="albums" class="top50">
-    <img :src="albums.album.blurPicUrl" />
+    <img :src="albums.album.blurPicUrl" @click="toAlbum(albums.album.id)" />
     <div class="detail-top50">
       <div class="title">
-        <span>{{ albums.album.name }}</span>
+        <span @click="toAlbum(albums.album.id)">{{ albums.album.name }}</span>
         <i class="iconfont icon-bofang"></i>
         <i class="iconfont icon-wenjianjia"></i>
       </div>
@@ -53,6 +53,15 @@ export default {
     playThisSong(id) {
       this.$bus.$emit("getSongId", id);
     },
+    toAlbum(id) {
+      let location = {
+        name: "albumdetailinfo",
+        query: {
+          id,
+        },
+      };
+      this.$router.push(location);
+    },
   },
   computed: {
     totalLength() {
@@ -71,6 +80,7 @@ export default {
     width: 15%;
     height: 100%;
     border-radius: 4px;
+    cursor: pointer;
   }
   .detail-top50 {
     width: 80%;
@@ -81,7 +91,7 @@ export default {
         font-size: 16px;
         font-weight: 700;
         padding-right: 8px;
-        cursor: default;
+        cursor: pointer;
         &:hover {
           color: #fff;
         }
